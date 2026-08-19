@@ -9,7 +9,8 @@ import ArchivesPage from '../pages/ArchivesPage'
 import ArchiveDetailPage from '../pages/ArchiveDetailPage'
 import ProtectedRoute from '../components/ProtectedRoute'
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
   {
     path: '/',
     element: <Navigate to="/login" replace />,
@@ -70,4 +71,6 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-])
+  ],
+  { basename: import.meta.env.BASE_URL },
+)

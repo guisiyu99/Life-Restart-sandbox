@@ -125,6 +125,14 @@
 
 ## 本地运行
 
+### 在线演示（Mock）
+
+GitHub Pages 托管 **Mock 演示版**（无需后端，数据为本地模拟）：
+
+**https://guisiyu99.github.io/Life-Restart-sandbox/**
+
+> 推送 `main` 分支后由 GitHub Actions 自动构建部署。仓库 Settings → Pages → Source 需选 **GitHub Actions**。
+
 ### 环境要求
 
 - Node.js 18+
