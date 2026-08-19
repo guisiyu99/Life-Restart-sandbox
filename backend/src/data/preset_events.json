@@ -1,0 +1,197 @@
+{
+  "父母": [
+    {
+      "title": "父母希望你回老家发展",
+      "description": "父母打来电话，希望你放弃大城市机会，回老家考编或接手小生意，他们已为你物色了几条路。",
+      "options": [
+        {"text": "听从安排，准备回老家", "money_change": 5000, "energy_change": -1, "joy_change": 2},
+        {"text": "坚持留在大城市打拼", "money_change": -3000, "energy_change": -2, "joy_change": -1},
+        {"text": "折中：每月回家探望并寄生活费", "money_change": -2000, "energy_change": -1, "joy_change": 3}
+      ]
+    },
+    {
+      "title": "父母健康亮起红灯",
+      "description": "母亲体检发现需要长期调理，父亲希望你多分担照护与医疗费用。",
+      "options": [
+        {"text": "请假回家陪护一个月", "money_change": -8000, "energy_change": -3, "joy_change": 4},
+        {"text": "请护工并承担费用", "money_change": -15000, "energy_change": -1, "joy_change": 2}
+      ]
+    }
+  ],
+  "子女": [
+    {
+      "title": "孩子择校难题",
+      "description": "孩子即将入学，优质学位需要高额赞助或搬家到学区房。",
+      "options": [
+        {"text": "咬牙买学区房", "money_change": -80000, "energy_change": -2, "joy_change": 3},
+        {"text": "选择普通公立学校", "money_change": -5000, "energy_change": 0, "joy_change": 0},
+        {"text": "尝试国际学校路线", "money_change": -40000, "energy_change": -1, "joy_change": 2}
+      ]
+    }
+  ],
+  "对象": [
+    {
+      "title": "伴侣提出同居/结婚计划",
+      "description": "交往多年的对象希望确定关系，讨论买房、婚礼与未来的分工。",
+      "options": [
+        {"text": "积极推进结婚计划", "money_change": -30000, "energy_change": -2, "joy_change": 5},
+        {"text": "再观察一年", "money_change": 0, "energy_change": 0, "joy_change": -2},
+        {"text": "坦诚沟通后和平分开", "money_change": 2000, "energy_change": 1, "joy_change": -3}
+      ]
+    }
+  ],
+  "身体健康": [
+    {
+      "title": "体检发现血压偏高",
+      "description": "年度体检报告显示血压达到临界值，医生建议调整生活方式。",
+      "options": [
+        {"text": "立即开始健身计划", "money_change": -5000, "energy_change": 3, "joy_change": 2},
+        {"text": "购买保健品但不改习惯", "money_change": -3000, "energy_change": 0, "joy_change": -1},
+        {"text": "忽略建议继续原状", "money_change": 0, "energy_change": -2, "joy_change": 0}
+      ]
+    }
+  ],
+  "消费娱乐": [
+    {
+      "title": "限量款诱惑",
+      "description": "心仪已久的数码产品/旅行套餐限时折扣，朋友圈都在讨论。",
+      "options": [
+        {"text": "果断下单奖励自己", "money_change": -12000, "energy_change": 1, "joy_change": 4},
+        {"text": "加入愿望清单延后", "money_change": 0, "energy_change": 0, "joy_change": -1},
+        {"text": "改选平价替代品", "money_change": -3000, "energy_change": 0, "joy_change": 2}
+      ]
+    }
+  ],
+  "自我觉察": [
+    {
+      "title": "深夜的迷茫",
+      "description": "你突然质疑当前人生方向，考虑心理咨询或进修课程。",
+      "options": [
+        {"text": "报名心理学/教练课程", "money_change": -8000, "energy_change": -1, "joy_change": 4},
+        {"text": "写日记与冥想自我梳理", "money_change": 0, "energy_change": 1, "joy_change": 2},
+        {"text": "用加班麻痹自己", "money_change": 5000, "energy_change": -3, "joy_change": -2}
+      ]
+    }
+  ],
+  "亲情爱情": [
+    {
+      "title": "家族聚会上的比较",
+      "description": "亲戚在饭桌上比较各家孩子的成就，你感到压力与复杂情绪。",
+      "options": [
+        {"text": "主动分享近况并化解尴尬", "money_change": -1000, "energy_change": -1, "joy_change": 2},
+        {"text": "提前离场保护情绪", "money_change": 0, "energy_change": 0, "joy_change": 0},
+        {"text": "暗下决心要证明自己", "money_change": 0, "energy_change": -2, "joy_change": 1}
+      ]
+    }
+  ],
+  "友情": [
+    {
+      "title": "老友婚礼上的抉择",
+      "description": "大学室友邀请你担任伴郎/伴娘，需要请假并承担往返费用。",
+      "options": [
+        {"text": "答应前往维护友情", "money_change": -3000, "energy_change": -2, "joy_change": 3},
+        {"text": "礼金祝贺人不到场", "money_change": -500, "energy_change": 0, "joy_change": 1},
+        {"text": "专注工作暂时失联", "money_change": 2000, "energy_change": 1, "joy_change": -2}
+      ]
+    }
+  ],
+  "工作": [
+    {
+      "title": "大厂 Offer 摆在面前",
+      "description": "你收到高薪工作机会，但需要频繁加班，个人时间大幅压缩。",
+      "options": [
+        {"text": "接受 Offer 积累资本", "money_change": 15000, "energy_change": -3, "joy_change": 1},
+        {"text": "选择平衡的小公司", "money_change": 5000, "energy_change": -1, "joy_change": 2},
+        {"text": "拒绝并等待更好机会", "money_change": 0, "energy_change": 1, "joy_change": 0}
+      ]
+    }
+  ],
+  "创业": [
+    {
+      "title": "合伙人邀请创业",
+      "description": "前同事邀请你加入初创团队，需要投入积蓄并承担不确定风险。",
+      "options": [
+        {"text": "全职加入赌一把", "money_change": -50000, "energy_change": -4, "joy_change": 5},
+        {"text": "兼职参与保留退路", "money_change": -10000, "energy_change": -2, "joy_change": 2},
+        {"text": "婉拒继续打工", "money_change": 3000, "energy_change": 1, "joy_change": -1}
+      ]
+    }
+  ],
+  "副业": [
+    {
+      "title": "自媒体副业机会",
+      "description": "有人邀请你合作内容账号，前期投入时间，回报不确定。",
+      "options": [
+        {"text": "投入周末时间试水", "money_change": -2000, "energy_change": -2, "joy_change": 3},
+        {"text": "只做一次合作评估", "money_change": 1000, "energy_change": -1, "joy_change": 1},
+        {"text": "拒绝专注主业", "money_change": 0, "energy_change": 1, "joy_change": 0}
+      ]
+    }
+  ],
+  "感性": [
+    {
+      "title": "冲动消费的艺术品",
+      "description": "一场展览上，你被一件作品打动，价格不菲但情感共鸣强烈。",
+      "options": [
+        {"text": "买下收藏", "money_change": -25000, "energy_change": 0, "joy_change": 5},
+        {"text": "拍照留念离开", "money_change": 0, "energy_change": 0, "joy_change": 1},
+        {"text": "联系艺术家谈分期", "money_change": -8000, "energy_change": -1, "joy_change": 3}
+      ]
+    }
+  ],
+  "地产": [
+    {
+      "title": "上车还是观望",
+      "description": "政策变动后，中介催促你尽快定下一套符合预算的房产。",
+      "options": [
+        {"text": "付定金锁定房源", "money_change": -100000, "energy_change": -2, "joy_change": 3},
+        {"text": "继续观望半年", "money_change": 5000, "energy_change": 0, "joy_change": -1},
+        {"text": "改租更好地段提升生活质量", "money_change": -12000, "energy_change": 1, "joy_change": 2}
+      ]
+    }
+  ],
+  "理性": [
+    {
+      "title": "投资组合调仓",
+      "description": "理财顾问建议调整资产配置，增加稳健债券或指数基金比例。",
+      "options": [
+        {"text": "按方案执行", "money_change": 8000, "energy_change": 0, "joy_change": 1},
+        {"text": "自行研究后小额试水", "money_change": 2000, "energy_change": -1, "joy_change": 0},
+        {"text": "全部转活期求稳", "money_change": -1000, "energy_change": 0, "joy_change": -1}
+      ]
+    }
+  ],
+  "公益": [
+    {
+      "title": "公益项目邀请",
+      "description": "本地 NGO 邀请你参与长期支教或捐赠计划，需要时间与资金。",
+      "options": [
+        {"text": "每月固定捐赠", "money_change": -3000, "energy_change": 0, "joy_change": 3},
+        {"text": "周末志愿者参与", "money_change": -500, "energy_change": -2, "joy_change": 4},
+        {"text": "暂时婉拒", "money_change": 0, "energy_change": 0, "joy_change": 0}
+      ]
+    }
+  ],
+  "保险信托": [
+    {
+      "title": "家庭保障规划",
+      "description": "保险顾问推荐重疾险与年金组合，声称可覆盖父母养老与孩子教育。",
+      "options": [
+        {"text": "购买全面套餐", "money_change": -20000, "energy_change": 0, "joy_change": 2},
+        {"text": "只买基础医疗险", "money_change": -6000, "energy_change": 0, "joy_change": 1},
+        {"text": "暂不配置", "money_change": 0, "energy_change": 0, "joy_change": -1}
+      ]
+    }
+  ],
+  "default": [
+    {
+      "title": "人生岔路口",
+      "description": "一个 unexpected 的机会出现在你面前，需要在稳定与冒险之间做出选择。",
+      "options": [
+        {"text": "稳妥前行", "money_change": 1000, "energy_change": 0, "joy_change": 1},
+        {"text": "冒险尝试", "money_change": -2000, "energy_change": -2, "joy_change": 3},
+        {"text": "保持观望", "money_change": 0, "energy_change": 1, "joy_change": 0}
+      ]
+    }
+  ]
+}

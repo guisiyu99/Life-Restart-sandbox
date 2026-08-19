@@ -1,0 +1,80 @@
+.game-new-page {
+  padding: 32px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.step-badge {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 8px 20px;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.game-new-card {
+  background: white;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 32px;
+}
+
+.game-new-card h2 {
+  margin-bottom: 16px;
+}
+
+.game-new-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stats-title {
+  margin: 24px 0 12px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+}
+
+.stat-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-value {
+  min-width: 100px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.hint-box {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--primary);
+  background: #f3ebf8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.game-new-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.start-btn {
+  min-width: 160px;
+}

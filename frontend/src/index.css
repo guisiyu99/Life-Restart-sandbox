@@ -1,0 +1,10 @@
+/* 仅保留 #root 布局；Vite 默认 dark-mode / color-scheme 已移除，避免与 theme.css 冲突 */
+
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 100svh;
+  text-align: initial;
+  border: none;
+}

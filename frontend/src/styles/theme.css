@@ -1,0 +1,114 @@
+/* Playful Geometric Design System - Neo-Sandbox Play */
+
+:root {
+  /* Colors from DESIGN.md */
+  --bg-main: #fef7ff;
+  --fg-main: #1d1a23;
+  --primary: #6b38d4;
+  --secondary-pink: #a43073;
+  --secondary-pink-light: #fc79bd;
+  --tertiary-amber: #765700;
+  --tertiary-amber-light: #f9bd22;
+  --quaternary-green: #34d399;
+  --border-dark: #7b7486;
+  --border-light: #e2e8f0;
+  --error: #ba1a1a;
+  --surface-shadow: #1e293b;
+
+  /* Typography */
+  --font-display: 'Outfit', 'Noto Sans SC', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'PingFang SC', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-full: 9999px;
+
+  /* Border width */
+  --border-width: 2px;
+
+  /* Hard shadow (Neo-Brutalism signature) */
+  --shadow-sm: 2px 2px 0 var(--surface-shadow);
+  --shadow-md: 4px 4px 0 var(--surface-shadow);
+  --shadow-lg: 6px 6px 0 var(--surface-shadow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-main);
+  color: var(--fg-main);
+  /* Dot grid background */
+  background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: 0 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-main);
+}
+
+/* 原生 button 显式文字色，避免系统 dark 偏好导致浅字浅底 */
+button:not(.ant-btn) {
+  color: var(--fg-main);
+  font-family: var(--font-body);
+}
+
+/* Ant Design theme overrides */
+.ant-btn-primary {
+  background-color: var(--primary);
+  border-color: var(--fg-main);
+  border-width: var(--border-width);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.ant-btn-primary:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translate(-2px, -2px);
+}
+
+.ant-btn-primary:active {
+  box-shadow: var(--shadow-sm);
+  transform: translate(2px, 2px);
+}
+
+.ant-card {
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.ant-input,
+.ant-input-password {
+  border: var(--border-width) solid var(--border-light);
+  border-radius: var(--radius-sm);
+}
+
+.ant-input:focus,
+.ant-input-password:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(107, 56, 212, 0.2);
+}

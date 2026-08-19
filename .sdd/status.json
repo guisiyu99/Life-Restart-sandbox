@@ -1,0 +1,21 @@
+{
+  "stage": "development",
+  "substage": "B06_user_gate",
+  "mode": "new",
+  "design_ready": true,
+  "development_ready": true,
+  "artifacts": {
+    "visual_research": ".sdd/tmp/visual-research.md",
+    "ui_design_spec": ".sdd/tmp/ui-design-spec.md",
+    "prototype_index": "docs/prototypes/index.html",
+    "prototype_validation": ".sdd/tmp/prototype-validation.md",
+    "stitch_prompt": "Stitch_prompt.md",
+    "prd": "docs/PRD.md",
+    "api_contracts": "docs/api-contracts.md",
+    "plan": "docs/Plan.md",
+    "tasks": ".sdd/tasks.json"
+  },
+  "current_task": "B06",
+  "blocked": false,
+  "notes": "B06 archives list/detail. Character name from frontend localStorage."
+}

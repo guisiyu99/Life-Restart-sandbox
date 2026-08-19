@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>重启人生沙盘模拟 — 原型预览</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fef7ff;
+      --fg: #1d1a23;
+      --primary: #6b38d4;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+      background-size: 16px 16px;
+      background-position: 0 0;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(254, 247, 255, 0.95);
+      border-bottom: 2px solid var(--fg);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 {
+      font-family: Outfit, "PingFang SC", sans-serif;
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--primary);
+    }
+    .meta { font-size: 0.875rem; opacity: 0.75; }
+    main { padding: 32px; max-width: 1600px; margin: 0 auto; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(680px, 1fr));
+      gap: 32px;
+    }
+    figure {
+      margin: 0;
+      background: #fff;
+      border: 2px solid var(--fg);
+      border-radius: 16px;
+      box-shadow: 6px 6px 0 var(--fg);
+      overflow: hidden;
+    }
+    figcaption {
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      font-weight: 700;
+      font-family: Outfit, sans-serif;
+    }
+    figcaption span {
+      display: block;
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    figure img {
+      width: 100%;
+      display: block;
+      border-top: 1px solid var(--border);
+    }
+    .flow {
+      margin-bottom: 32px;
+      padding: 16px 20px;
+      background: #fff;
+      border: 2px solid var(--fg);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--fg);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    a { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>重启人生沙盘模拟 · Stitch 原型</h1>
+      <div class="meta">SDD B2 · Playful Geometric · 1440×900 静态 PNG</div>
+    </div>
+    <div class="meta">
+      <a href="../README.md">README</a> ·
+      <a href="../../.sdd/tmp/ui-design-spec.md">Design Spec</a> ·
+      <a href="../../.sdd/tmp/prototype-validation.md">验证报告</a>
+    </div>
+  </header>
+  <main>
+    <div class="flow">
+      <strong>用户路径：</strong>
+      P01 登录 → P03 首页 → P04 创角 → P05 对局 → P06 回顾 ·
+      P07 档案列表 → P08 详情 · P02 注册
+    </div>
+    <div class="grid">
+      <figure id="p01">
+        <figcaption>P01 登录页<span>01-login/screen.png</span></figcaption>
+        <img src="01-login/screen.png" alt="登录页" loading="lazy" />
+      </figure>
+      <figure id="p02">
+        <figcaption>P02 注册页<span>02-register/screen.png</span></figcaption>
+        <img src="02-register/screen.png" alt="注册页" loading="lazy" />
+      </figure>
+      <figure id="p03">
+        <figcaption>P03 首页<span>03-home/screen.png</span></figcaption>
+        <img src="03-home/screen.png" alt="首页" loading="lazy" />
+      </figure>
+      <figure id="p04">
+        <figcaption>P04 角色创建<span>04-character-creation/screen.png</span></figcaption>
+        <img src="04-character-creation/screen.png" alt="角色创建" loading="lazy" />
+      </figure>
+      <figure id="p05">
+        <figcaption>P05 对局主界面<span>05-game-main/screen.png</span></figcaption>
+        <img src="05-game-main/screen.png" alt="对局主界面" loading="lazy" />
+      </figure>
+      <figure id="p06">
+        <figcaption>P06 人生回顾<span>06-life-review/screen.png</span></figcaption>
+        <img src="06-life-review/screen.png" alt="人生回顾" loading="lazy" />
+      </figure>
+      <figure id="p07">
+        <figcaption>P07 历史人生档案<span>07-history-list/screen.png</span></figcaption>
+        <img src="07-history-list/screen.png" alt="历史档案" loading="lazy" />
+      </figure>
+      <figure id="p08">
+        <figcaption>P08 历史复盘详情<span>08-history-detail/screen.png</span></figcaption>
+        <img src="08-history-detail/screen.png" alt="历史详情" loading="lazy" />
+      </figure>
+    </div>
+  </main>
+</body>
+</html>

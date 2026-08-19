@@ -1,0 +1,331 @@
+.game-play-page {
+  display: grid;
+  grid-template-columns: 220px 1fr 300px;
+  gap: 24px;
+  padding: 24px 32px;
+  min-height: calc(100vh - 120px);
+}
+
+.timeline {
+  background: white;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 20px 16px;
+}
+
+.timeline h3 {
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: var(--border-dark);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--border-dark);
+}
+
+.timeline-item.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.timeline-item.done {
+  color: var(--quaternary-green);
+}
+
+.timeline-dot {
+  width: 24px;
+  height: 24px;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  background: white;
+  flex-shrink: 0;
+}
+
+.timeline-item.active .timeline-dot {
+  background: var(--primary);
+  color: white;
+}
+
+.event-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.round-label {
+  font-weight: 600;
+  color: var(--fg-main);
+}
+
+.event-area-hint {
+  font-size: 13px;
+  color: var(--border-dark);
+}
+
+.flip-card {
+  width: 100%;
+  max-width: 520px;
+  min-height: 420px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  transition: transform 0.6s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 28px;
+  background: white;
+}
+
+/* 未翻牌时可见：背面 */
+.flip-face.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-weight: 800;
+  z-index: 2;
+}
+
+.flip-face.back.life {
+  background: linear-gradient(135deg, #fc79bd 0%, #ff9ec9 100%);
+}
+
+.flip-face.back.career {
+  background: linear-gradient(135deg, #8455ef 0%, #a78bfa 100%);
+}
+
+.flip-back-icon {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.flip-back-hint {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 3px rgba(29, 26, 35, 0.35);
+}
+
+/* 翻牌后可见：正面（初始旋转 180° 隐藏） */
+.flip-face.front {
+  transform: rotateY(180deg);
+  overflow-y: auto;
+}
+
+.flip-face.front.life {
+  box-shadow: 6px 6px 0 #fc79bd;
+}
+
+.flip-face.front.career {
+  box-shadow: 6px 6px 0 #8455ef;
+}
+
+.event-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.event-tag {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  border: var(--border-width) solid var(--fg-main);
+}
+
+.event-tag.life {
+  background: #ffd8e7;
+}
+
+.event-tag.career {
+  background: #e9ddff;
+}
+
+.event-title {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.event-desc {
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: var(--border-dark);
+}
+
+.option-btn {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  padding: 12px 16px !important;
+  height: auto !important;
+  white-space: normal;
+  border: var(--border-width) solid var(--fg-main) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.option-hint {
+  display: block;
+  font-size: 12px;
+  color: var(--border-dark);
+  margin-top: 4px;
+}
+
+.picker-panel {
+  background: white;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+}
+
+.picker-panel h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--fg-main);
+}
+
+.picker-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--border-dark);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* 一级：人生圈子 — 分段控制器（pill 容器 + 大 tab） */
+.circle-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  background: #f4f0fa;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.circle-tab {
+  flex: 1;
+  padding: 12px 10px;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--fg-main);
+  font-family: var(--font-display);
+  transition: background 0.15s, box-shadow 0.15s, color 0.15s;
+}
+
+.circle-tab:not(.active):hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.circle-tab.active.life {
+  background: linear-gradient(135deg, #fc79bd 0%, #ff9ec9 100%);
+  color: white;
+  border-color: var(--fg-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.circle-tab.active.career {
+  background: linear-gradient(135deg, #8455ef 0%, #a78bfa 100%);
+  color: white;
+  border-color: var(--fg-main);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 二级：子主题 — 虚线分隔 + 小 chip 宫格 */
+.theme-section {
+  margin-bottom: 16px;
+  padding-top: 16px;
+  border-top: 2px dashed var(--border-light);
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.theme-chip {
+  padding: 7px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--fg-main);
+  cursor: pointer;
+  font-family: var(--font-body);
+  line-height: 1.3;
+  box-shadow: none;
+}
+
+.theme-chip:hover:not(.selected) {
+  background: #f8fafc;
+  border-color: var(--fg-main);
+}
+
+.theme-chip.selected {
+  background: var(--primary);
+  color: white;
+  border: var(--border-width) solid var(--fg-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.picker-hint {
+  font-size: 13px;
+  color: var(--fg-main);
+  line-height: 1.6;
+  padding: 10px;
+  border: 1px dashed var(--border-dark);
+  border-radius: var(--radius-sm);
+  background: #faf8ff;
+}
+
+.draw-btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+@media (max-width: 1024px) {
+  .game-play-page {
+    grid-template-columns: 1fr;
+  }
+}

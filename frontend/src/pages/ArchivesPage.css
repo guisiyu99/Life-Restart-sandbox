@@ -1,0 +1,90 @@
+.archives-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.back-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.archives-page h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.archives-subtitle {
+  color: var(--border-dark);
+  margin-bottom: 32px;
+}
+
+.archives-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.archive-card {
+  text-align: left;
+  background: white;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.archive-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.archive-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.archive-tag {
+  font-size: 12px;
+  padding: 2px 10px;
+  background: #e9ddff;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--fg-main);
+}
+
+.archive-stats {
+  font-size: 14px;
+  color: var(--border-dark);
+}
+
+.archive-date {
+  font-size: 12px;
+  color: var(--border-dark);
+  margin-top: 8px;
+}
+
+.archives-empty {
+  text-align: center;
+  padding: 48px;
+  border: 2px dashed var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.empty-cta {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: white;
+  border: var(--border-width) solid var(--fg-main);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-weight: 600;
+}

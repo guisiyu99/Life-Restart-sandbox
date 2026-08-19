@@ -1,0 +1,670 @@
+{
+  "project": "人生重启模拟器",
+  "project_type": "web",
+  "created": "2026-06-07",
+  "runtime": {
+    "python": "python3",
+    "frontend_dev_port": 5199,
+    "backend_dev_port": 8099,
+    "user_gate_frontend_port": 5175,
+    "user_gate_backend_port": 8003
+  },
+  "source_files": {
+    "prd": "docs/PRD.md",
+    "plan": "docs/Plan.md",
+    "api_contracts": "docs/api-contracts.md"
+  },
+  "external_services": [
+    {
+      "name": "DeepSeek AI",
+      "required": true,
+      "config_keys": ["LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL"],
+      "tester_access_required": "backend/.env 已配置测试 Key 与可调用额度",
+      "fallback_allowed": true,
+      "status": "confirmed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "前端工程脚手架初始化",
+      "type": "frontend",
+      "description": "在 frontend/ 初始化 React 18 + TypeScript + Vite 5 + Ant Design 工程；配置 react-router-dom 6 路由骨架、Zustand 全局状态、Axios 实例与拦截器、VITE_USE_MOCK 开关、ESLint/Prettier/type-check/build 脚本；开发端口 5199；vite.config.ts 配置 /api 代理到 http://localhost:8099；创建 src/mocks/ 与 src/services/ 目录占位。视觉规范遵循 .sdd/tmp/ui-design-spec.md（Playful Geometric）。",
+      "source_feature": "前端基础设施",
+      "acceptanceCriteria": [],
+      "technicalChecks": [
+        "cd frontend && npm install 成功",
+        "cd frontend && npm run type-check 通过",
+        "cd frontend && npm run lint 通过",
+        "cd frontend && npm run build 通过",
+        "vite.config.ts 配置 server.port=5199 且 proxy['/api'] 指向 http://localhost:8099",
+        "frontend/.env 中 VITE_API_BASE_URL=/api 且 VITE_USE_MOCK=true",
+        "VITE_API_BASE_URL 使用相对路径 /api，禁止写完整后端 URL 触发 CORS"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": [],
+        "services": [],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": [],
+      "priority": 1,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "系统经验：vite /api 代理为前后端联调基础设施，脚手架阶段必须配置完成",
+      "user_gate": false
+    },
+    {
+      "id": "T-002",
+      "title": "P01 登录页 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /login 登录页：邮箱/密码表单、登录 Loading/错误态、Mock 调用 POST /api/auth/login、成功后将 Mock Token 写入 localStorage 并跳转首页。布局、配色、圆角与 docs/prototypes/01-login 及 ui-design-spec 一致。",
+      "source_feature": "F01",
+      "acceptanceCriteria": [
+        "用户在登录页看到邮箱、密码输入框和登录按钮，整体布局与 Stitch 原型一致",
+        "用户输入任意邮箱密码点击登录，页面跳转到首页"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock 响应格式与 api-contracts.md POST /api/auth/login 一致",
+        "固定高度容器预留 ≥20% 缓冲，浏览器中验证文字不被截断"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P01 Login"],
+        "services": ["authService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-001"],
+      "priority": 2,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-003",
+      "title": "P02 注册页 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /register 注册页：邮箱、密码、确认密码表单、Mock 调用 POST /api/auth/register、注册成功自动登录并跳转首页。对齐 docs/prototypes/02-register。",
+      "source_feature": "F01",
+      "acceptanceCriteria": [
+        "用户在注册页看到邮箱、密码、确认密码输入框和注册按钮，布局与原型一致",
+        "用户填写表单点击注册，页面跳转到首页"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock 响应格式与 api-contracts.md POST /api/auth/register 一致"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P02 Register"],
+        "services": ["authService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-002"],
+      "priority": 3,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-004",
+      "title": "P03 首页 Mock 实现",
+      "type": "frontend",
+      "description": "实现 / 首页：大标题「重启人生沙盘模拟」、副标题、「创建角色」「历史人生档案」两个主按钮；未登录访问受保护路由时跳转登录页（基于 Mock Token 的 AuthGuard）。对齐 docs/prototypes/03-home。",
+      "source_feature": "F02",
+      "acceptanceCriteria": [
+        "用户在首页看到产品标题和两个主按钮「创建角色」「历史人生档案」，布局与原型一致",
+        "用户点击「创建角色」跳转到角色创建页",
+        "用户点击「历史人生档案」跳转到历史档案列表页"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "AuthGuard 基于 localStorage Mock Token 拦截未登录访问"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P03 Home"],
+        "services": [],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-003"],
+      "priority": 4,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-005",
+      "title": "P04 角色创建页 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /game/new 角色创建页：姓名输入、金钱/精力/快乐度初始值滑块或步进器、确认创建按钮；Mock 调用 POST /api/games 后跳转对局页 /game/:id。对齐 docs/prototypes/04-character-creation。角色姓名可存前端状态（API 契约无姓名字段）。",
+      "source_feature": "F02",
+      "acceptanceCriteria": [
+        "用户在角色创建页可输入姓名并调整三大初始属性，布局与原型一致",
+        "用户点击确认创建，页面跳转到对局主界面"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock POST /api/games 响应字段与 api-contracts.md 一致"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P04 Character Creation"],
+        "services": ["gameService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-004"],
+      "priority": 5,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-006",
+      "title": "P05 对局主界面 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /game/:id 单页对局主界面：左侧决策时间轴、中央事件卡片翻转（CSS3 rotateY 0.6s ease-out）、右侧圈/子主题选择器；Mock 调用 draw-event、choices、advance-round、GET game；按年龄段规则切换选圈/选主题/自动抽取；完成本轮事件后可进入下一年龄段。对齐 docs/prototypes/05-game-main。",
+      "source_feature": "F03-F05",
+      "acceptanceCriteria": [
+        "用户在对局页左侧看到当前年龄段与决策时间轴，中央看到可翻转的事件卡片（正面「？」、背面事件详情与选项），布局与原型一致",
+        "用户在 40 岁前可选择生活/职业圈和子主题，点击抽取后中央展示事件卡片",
+        "用户翻开卡片并选择某一选项后，顶部三大属性数值按 Mock 数据更新，时间轴新增一条决策记录",
+        "用户完成当前轮次全部事件后，可进入下一年龄段，左侧时间轴与顶部属性同步更新"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock draw-event/choices/advance-round/GET game 响应与 api-contracts.md 一致",
+        "卡片翻转动画 0.6s ease-out",
+        "固定高度区域（属性条、时间轴项）预留 ≥20% 缓冲避免文字截断"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P05 Game Session"],
+        "services": ["gameService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-005"],
+      "priority": 6,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "Mock 阶段展示 Mock AI 事件占位，不验收真实 LLM 调用；不验收 V2+ 游戏中断恢复",
+      "user_gate": false
+    },
+    {
+      "id": "T-007",
+      "title": "P06 人生回顾页 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /game/:id/review 人生回顾页：结局标签、Mock AI 总结文案、完整决策时间轴、「再来一次」按钮；Mock 调用 POST /api/games/:id/finish。对齐 docs/prototypes/06-life-review。",
+      "source_feature": "F06",
+      "acceptanceCriteria": [
+        "用户在人生回顾页看到结局标签、人生总结文字和决策时间轴，布局与原型一致",
+        "用户点击「再来一次」，页面跳转到首页"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock finish 响应与 api-contracts.md 一致"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P06 Life Review"],
+        "services": ["gameService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-006"],
+      "priority": 7,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-008",
+      "title": "P07 历史人生档案列表 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /archives 历史档案列表页：已完成对局卡片列表（最终属性、摘要、时间）；Mock 调用 GET /api/archives；点击卡片跳转详情。对齐 docs/prototypes/07-history-list。",
+      "source_feature": "F07",
+      "acceptanceCriteria": [
+        "用户在历史档案页看到已完成对局列表，每条展示最终金钱/精力/快乐度与摘要，布局与原型一致",
+        "用户点击某条档案记录，页面跳转到该对局详情页"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock GET /api/archives 分页响应与 api-contracts.md 一致"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P07 Archive List"],
+        "services": ["archiveService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-007"],
+      "priority": 8,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-009",
+      "title": "P08 历史复盘详情 Mock 实现",
+      "type": "frontend",
+      "description": "实现 /archives/:id 历史详情页：只读 AI 总结、完整决策轨迹、「基于此重开」按钮（Mock 创建新游戏并跳转对局页）。Mock 调用 GET /api/archives/:id。对齐 docs/prototypes/08-history-detail。",
+      "source_feature": "F07",
+      "acceptanceCriteria": [
+        "用户在历史详情页看到完整人生总结与按轮次排列的决策轨迹，布局与原型一致",
+        "用户点击「基于此重开」，页面跳转到新对局主界面"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "Mock GET /api/archives/:id 响应与 api-contracts.md 一致",
+        "全站 8 个页面路由可互相导航，Mock 数据可串联演示完整流程"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P08 Archive Detail"],
+        "services": ["archiveService", "gameService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-008"],
+      "priority": 9,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": false
+    },
+    {
+      "id": "T-010",
+      "title": "前端 Mock 全页面用户验收",
+      "type": "frontend",
+      "description": "汇总 P01-P08 全部 Mock 页面，供用户从 docs/prototypes/index.html 对照验收 Playful Geometric 视觉与完整 Mock 交互流程（注册/登录→创建角色→对局翻牌→回顾→历史档案）。本任务不新增功能，仅作为 Mock 阶段门禁。",
+      "source_feature": "前端 Mock 阶段",
+      "acceptanceCriteria": [
+        "用户打开登录页、注册页、首页、角色创建、对局主界面、人生回顾、历史列表、历史详情共 8 个页面，视觉风格与 Stitch 原型一致",
+        "用户使用 Mock 数据可从注册/登录开始，走完创建角色、翻牌抉择、人生回顾、查看历史档案的完整演示流程"
+      ],
+      "technicalChecks": [
+        "npm run type-check/lint/build 通过",
+        "全部 Mock handler 字段为 api-contracts.md 已定义字段子集",
+        "VITE_USE_MOCK=true 时所有页面不发起真实后端请求"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": ["P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08"],
+        "services": ["authService", "gameService", "archiveService"],
+        "realApiEndpoints": [],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-009"],
+      "priority": 10,
+      "rules_files": ["dev-standards/frontend.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "用户门禁端口：前端 5175。Mock 阶段不验收游戏中断恢复（V2+）",
+      "user_gate": true
+    },
+    {
+      "id": "B00",
+      "title": "后端基础设施：PyCore 框架、健康检查、认证骨架与 SQLite",
+      "type": "backend",
+      "description": "基于 pycore 搭建 backend/：main.py 使用 APIServer；core/config.py 使用 ConfigManager 读取 .env（含 LLM_*）；复制 pyproject.toml 工具链；db/models.py 与 session.py 扩展 User/Game 模型；api/deps.py 认证依赖骨架（get_current_user）；scripts/init_db.py 初始化 SQLite（backend/data/life_restart.db）；GET /health；CORS 允许 5199/5175。",
+      "source_feature": "B00",
+      "acceptanceCriteria": [
+        "backend/src/main.py 使用 pycore.api.APIServer，未自行重写 FastAPI 实例",
+        "backend/src/core/config.py 使用 ConfigManager，LLM_API_KEY 等敏感配置从 .env 读取无硬编码",
+        "backend/src/db/models.py 与 session.py 基于 pycore 模板扩展 User、Game 模型",
+        "backend/src/api/deps.py 基于 pycore 模板扩展，get_current_user 作为路由级 Depends 依赖",
+        "无凭证访问受保护路由返回 401 统一错误格式；CORS 中间件已注册",
+        "cd backend && PYTHONPATH=.. $PY scripts/init_db.py 执行通过，SQLite 文件与目标表真实落盘",
+        "GET /health 返回 200"
+      ],
+      "technicalChecks": [
+        "$PY -m ruff check backend/src backend/tests 通过",
+        "$PY -m mypy backend/src backend/tests 通过",
+        "$PY -m pytest backend/tests 通过",
+        "cd backend && PYTHONPATH=.. $PY scripts/init_db.py 通过",
+        "backend/data/life_restart.db 存在且 users/games 表已创建",
+        "cd backend && PYTHONPATH=.. $PY -m uvicorn src.main:app --host 127.0.0.1 --port 8099 可短时启动",
+        "pycore/ 未被纳入项目业务代码质量门禁"
+      ],
+      "frontendIntegration": {
+        "required": false,
+        "pages": [],
+        "services": [],
+        "realApiEndpoints": ["/health"],
+        "mockExitCriteria": []
+      },
+      "externalServices": [],
+      "dependencies": ["T-010"],
+      "priority": 11,
+      "rules_files": ["dev-standards/backend-dev.md", "dev-standards/backend-layers.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "user_gate=false，自动连续执行",
+      "user_gate": false
+    },
+    {
+      "id": "B01",
+      "title": "用户认证功能闭环（注册/登录/当前用户）",
+      "type": "integration",
+      "description": "实现 POST /api/auth/register、POST /api/auth/login、GET /api/auth/me（JWT + BCrypt）；前端 authService 在 VITE_USE_MOCK=false 时切换真实 API；P01/P02 登录注册页联调；Token 存 localStorage，刷新后保持登录态。",
+      "source_feature": "F01",
+      "acceptanceCriteria": [
+        "用户在注册页填写邮箱密码完成注册，页面自动登录并跳转到首页",
+        "用户在登录页输入已注册账号密码点击登录，页面跳转到首页，刷新后仍保持登录状态",
+        "用户未登录直接访问首页时，页面跳转到登录页"
+      ],
+      "technicalChecks": [
+        "pytest 认证接口测试通过",
+        "VITE_USE_MOCK=false 时登录/注册请求命中真实后端 /api/auth/*，不走 frontend/src/mocks/*",
+        "vite.config.ts proxy['/api'] 指向后端 8099（用户门禁时 8003）",
+        "页面无 [Mock] 标识或 Mock-only 登录提示"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P01 Login", "P02 Register", "P03 Home"],
+        "services": ["authService"],
+        "realApiEndpoints": [
+          "POST /api/auth/register",
+          "POST /api/auth/login",
+          "GET /api/auth/me"
+        ],
+        "mockExitCriteria": [
+          "authService 在 VITE_USE_MOCK=false 时调用真实后端",
+          "登录页与注册页无 Mock 数据提示"
+        ]
+      },
+      "externalServices": [],
+      "dependencies": ["B00"],
+      "priority": 12,
+      "rules_files": ["dev-standards/frontend.md", "dev-standards/backend-dev.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": true
+    },
+    {
+      "id": "B02",
+      "title": "游戏创建与查询功能闭环",
+      "type": "integration",
+      "description": "实现 POST /api/games、GET /api/games/{game_id}；前端 gameService 创建/查询切真实 API；P03 首页「创建角色」→ P04 角色创建 → 跳转 P05 对局页；角色姓名保留前端状态，初始属性按契约默认值（money 50000/energy 10/joy 0）。",
+      "source_feature": "F02",
+      "acceptanceCriteria": [
+        "用户在首页点击「创建角色」，进入角色创建页并可填写姓名",
+        "用户在角色创建页点击确认，页面跳转到对局主界面，顶部显示初始三大属性",
+        "用户在对局页可看到当前年龄段（22-25 岁）与空决策时间轴"
+      ],
+      "technicalChecks": [
+        "pytest 游戏创建与查询测试通过",
+        "VITE_USE_MOCK=false 时 POST/GET /api/games 命中真实后端",
+        "gameService 已切换真实 API，页面无 [Mock] 残留"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P03 Home", "P04 Character Creation", "P05 Game Session"],
+        "services": ["gameService"],
+        "realApiEndpoints": [
+          "POST /api/games",
+          "GET /api/games/{game_id}"
+        ],
+        "mockExitCriteria": [
+          "创建游戏与查询游戏状态走真实后端",
+          "角色创建页无 Mock 游戏数据提示"
+        ]
+      },
+      "externalServices": [],
+      "dependencies": ["B01"],
+      "priority": 13,
+      "rules_files": ["dev-standards/frontend.md", "dev-standards/backend-dev.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": true
+    },
+    {
+      "id": "B03",
+      "title": "AI 事件抽取功能闭环",
+      "type": "integration",
+      "description": "实现 POST /api/games/{game_id}/draw-event：优先调用 DeepSeek 生成事件，失败降级 preset_events.json；前端 P05 圈/主题选择与抽牌切真实 API；按年龄段规则返回 1-2 个事件卡片。",
+      "source_feature": "F04",
+      "acceptanceCriteria": [
+        "用户在对局页选择生活/职业圈和子主题（40 岁前）并点击抽取，中央展示可翻转的事件卡片，卡片背面显示事件标题、描述与 2-3 个选项",
+        "用户翻开卡片可看到各选项对应的属性变化预览"
+      ],
+      "technicalChecks": [
+        "pytest draw-event 接口与 AI 降级测试通过",
+        "VITE_USE_MOCK=false 时 draw-event 请求命中真实后端",
+        "DeepSeek 配置可用时完成真实 LLM 调用；不可用时测试报告标记 fallback 验收",
+        "httpx.AsyncClient(trust_env=False) 调用 LLM",
+        "LLM_API_KEY 未硬编码进代码"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P05 Game Session"],
+        "services": ["gameService"],
+        "realApiEndpoints": [
+          "POST /api/games/{game_id}/draw-event"
+        ],
+        "mockExitCriteria": [
+          "事件抽取走真实后端",
+          "对局页事件卡片数据非 Mock 占位"
+        ]
+      },
+      "externalServices": ["DeepSeek AI"],
+      "dependencies": ["B02"],
+      "priority": 14,
+      "rules_files": [
+        "dev-standards/frontend.md",
+        "dev-standards/backend-dev.md",
+        "dev-standards/backend-plugin.md"
+      ],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "外部服务 Key 仅存 backend/.env",
+      "user_gate": true
+    },
+    {
+      "id": "B04",
+      "title": "决策提交与年龄段推进功能闭环",
+      "type": "integration",
+      "description": "实现 POST /api/games/{game_id}/choices 与 POST /api/games/{game_id}/advance-round；前端 P05 选项提交、属性更新、轮次结束进入下一年龄段切真实 API；更新决策时间轴与三大属性展示。",
+      "source_feature": "F03,F05",
+      "acceptanceCriteria": [
+        "用户在对局页选择某一事件选项后，顶部金钱/精力/快乐度数值立即更新，左侧时间轴新增对应决策记录",
+        "用户完成当前轮次全部事件并确认进入下一轮后，左侧时间轴显示新年龄段，圈/主题选择规则随年龄段切换"
+      ],
+      "technicalChecks": [
+        "pytest choices 与 advance-round 测试通过",
+        "VITE_USE_MOCK=false 时 choices/advance-round 命中真实后端",
+        "属性变化写入数据库后可经 GET game 读回",
+        "页面无 [Mock] 决策数据"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P05 Game Session"],
+        "services": ["gameService"],
+        "realApiEndpoints": [
+          "POST /api/games/{game_id}/choices",
+          "POST /api/games/{game_id}/advance-round",
+          "GET /api/games/{game_id}"
+        ],
+        "mockExitCriteria": [
+          "决策提交与轮次推进走真实后端",
+          "对局页属性与时间轴来自真实游戏状态"
+        ]
+      },
+      "externalServices": [],
+      "dependencies": ["B03"],
+      "priority": 15,
+      "rules_files": ["dev-standards/frontend.md", "dev-standards/backend-dev.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "不验收 V2+ 游戏中断恢复",
+      "user_gate": true
+    },
+    {
+      "id": "B05",
+      "title": "游戏结束与 AI 人生回顾功能闭环",
+      "type": "integration",
+      "description": "实现 POST /api/games/{game_id}/finish：第 8 轮完成后调用 DeepSeek 生成 ai_review，失败返回模板化总结；游戏状态变 completed；前端 P05 结束后跳转 P06 回顾页切真实 API。",
+      "source_feature": "F06",
+      "acceptanceCriteria": [
+        "用户完成第 8 轮对局后进入人生回顾页，页面展示结局标签与 AI 生成的人生总结文字",
+        "用户在人生回顾页可看到完整决策时间轴",
+        "用户点击「再来一次」，页面跳转到首页"
+      ],
+      "technicalChecks": [
+        "pytest finish 接口与 AI 降级测试通过",
+        "VITE_USE_MOCK=false 时 finish 命中真实后端",
+        "DeepSeek 可用时 ai_review 为真实生成内容；不可用时标记 fallback 验收",
+        "游戏 status 变为 completed 并持久化到 SQLite"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P05 Game Session", "P06 Life Review"],
+        "services": ["gameService"],
+        "realApiEndpoints": [
+          "POST /api/games/{game_id}/finish"
+        ],
+        "mockExitCriteria": [
+          "人生回顾数据来自真实后端 finish 接口",
+          "回顾页无 Mock AI 总结占位"
+        ]
+      },
+      "externalServices": ["DeepSeek AI"],
+      "dependencies": ["B04"],
+      "priority": 16,
+      "rules_files": [
+        "dev-standards/frontend.md",
+        "dev-standards/backend-dev.md",
+        "dev-standards/backend-plugin.md"
+      ],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": true
+    },
+    {
+      "id": "B06",
+      "title": "历史档案查询功能闭环",
+      "type": "integration",
+      "description": "实现 GET /api/archives 与 GET /api/archives/{game_id}；前端 archiveService 切真实 API；P07 列表与 P08 详情联调；「基于此重开」创建新游戏。",
+      "source_feature": "F07",
+      "acceptanceCriteria": [
+        "用户在历史档案页看到已完成对局列表，每条展示最终属性与 AI 总结摘要",
+        "用户点击某条记录进入详情页，可查看完整决策轨迹与 AI 总结",
+        "用户在详情页点击「基于此重开」，页面跳转到新对局主界面"
+      ],
+      "technicalChecks": [
+        "pytest 归档查询测试通过",
+        "VITE_USE_MOCK=false 时 archives 接口命中真实后端",
+        "仅 completed 状态游戏出现在归档列表",
+        "历史列表/详情页无 [Mock] 数据"
+      ],
+      "frontendIntegration": {
+        "required": true,
+        "pages": ["P07 Archive List", "P08 Archive Detail"],
+        "services": ["archiveService", "gameService"],
+        "realApiEndpoints": [
+          "GET /api/archives",
+          "GET /api/archives/{game_id}"
+        ],
+        "mockExitCriteria": [
+          "archiveService 走真实后端",
+          "历史档案页数据来自数据库已完成对局"
+        ]
+      },
+      "externalServices": [],
+      "dependencies": ["B05"],
+      "priority": 17,
+      "rules_files": ["dev-standards/frontend.md", "dev-standards/backend-dev.md"],
+      "status": "pending",
+      "developer_id": null,
+      "tester_id": null,
+      "retry_count": 0,
+      "blocked": false,
+      "notes": "",
+      "user_gate": true
+    }
+  ]
+}
